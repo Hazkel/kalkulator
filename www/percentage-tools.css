@@ -1,0 +1,193 @@
+.percentage-tools-open {
+  min-width: 40px;
+  padding: 8px !important;
+  color: #80d8ff !important;
+  font-size: 17px !important;
+  font-weight: 700;
+}
+
+.percentage-tools-dialog {
+  width: min(92vw, 520px);
+  max-height: min(86dvh, 720px);
+  padding: 20px;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: #17181d;
+  color: #f7f7fa;
+}
+
+.percentage-tools-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.percentage-tools-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.percentage-tools-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.percentage-tools-header p {
+  margin: 5px 0 0;
+  color: #999ba7;
+  font-size: 13px;
+}
+
+.percentage-tools-close,
+.percentage-tools-reset,
+.percentage-tools-copy {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  background: #202126;
+  color: #f1f1f5;
+  cursor: pointer;
+  font: inherit;
+  touch-action: manipulation;
+}
+
+.percentage-tools-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  font-size: 26px;
+}
+
+.percentage-tools-content {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.percentage-tools-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  color: #a4a6b1;
+  font-size: 13px;
+}
+
+.percentage-tools-field select,
+.percentage-tools-field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  background: #202126;
+  color: #f7f7fa;
+  font: inherit;
+  font-size: 15px;
+}
+
+.percentage-tools-field input::placeholder {
+  color: #737580;
+}
+
+.percentage-tools-hint {
+  margin: -3px 0 0;
+  color: #999ba7;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.percentage-tools-result {
+  display: flex;
+  min-height: 92px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgba(128, 216, 255, 0.2);
+  border-radius: 14px;
+  background: rgba(128, 216, 255, 0.06);
+}
+
+.percentage-tools-result-empty {
+  margin: 0;
+  color: #999ba7;
+  font-size: 14px;
+}
+
+.percentage-tools-result-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.percentage-tools-result-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  color: #a4a6b1;
+  font-size: 13px;
+}
+
+.percentage-tools-result-row strong {
+  color: #f7f7fa;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.percentage-tools-status {
+  min-height: 1.3em;
+  margin: 0;
+  color: #80d8ff;
+  font-size: 13px;
+}
+
+.percentage-tools-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.percentage-tools-reset,
+.percentage-tools-copy {
+  min-height: 42px;
+  padding: 9px 13px;
+  font-size: 14px;
+}
+
+.percentage-tools-reset {
+  color: #c9cad2;
+}
+
+.percentage-tools-copy {
+  color: #80d8ff;
+}
+
+.percentage-tools-open:focus-visible,
+.percentage-tools-close:focus-visible,
+.percentage-tools-reset:focus-visible,
+.percentage-tools-copy:focus-visible,
+.percentage-tools-field select:focus-visible,
+.percentage-tools-field input:focus-visible {
+  outline: 3px solid #80d8ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 420px) {
+  .percentage-tools-dialog {
+    padding: 16px;
+  }
+
+  .percentage-tools-result-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .percentage-tools-result-row strong {
+    text-align: left;
+  }
+}

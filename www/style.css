@@ -38,30 +38,29 @@ button {
 
 .calculator {
   width: min(100%, 720px);
-  height: 100vh;
-  height: 100dvh;
-  min-height: 420px;
+  min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) minmax(0, 2.45fr);
-  gap: clamp(14px, 2.2vh, 30px);
+  grid-template-rows: auto minmax(140px, 1fr) auto;
+  gap: clamp(12px, 2vh, 24px);
   padding:
-    max(20px, env(safe-area-inset-top))
-    clamp(18px, 4vw, 36px)
-    max(20px, env(safe-area-inset-bottom));
-  overflow: hidden;
+    max(18px, env(safe-area-inset-top))
+    clamp(16px, 4vw, 36px)
+    max(18px, env(safe-area-inset-bottom));
 }
 
 .calculator-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 36px;
+  gap: 10px;
+  min-height: 40px;
 }
 
 .brand-mark {
   width: 36px;
   height: 36px;
   display: grid;
+  flex: 0 0 auto;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
@@ -77,6 +76,37 @@ button {
   font-size: clamp(15px, 2.5vw, 18px);
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+.header-button,
+.angle-toggle,
+.history-close,
+.history-action,
+.history-clear {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #202126;
+  color: #f1f1f5;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.header-button {
+  padding: 9px 11px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.scientific-toggle {
+  margin-left: auto;
+  color: #80d8ff;
+}
+
+.scientific-toggle[aria-expanded="true"] {
+  background: #292c35;
+}
+
+.history-open {
+  color: #80d8ff;
 }
 
 .display-panel {
@@ -113,21 +143,26 @@ button {
   white-space: nowrap;
 }
 
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .keypad {
-  min-height: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(5, minmax(0, 1fr));
-  gap: clamp(9px, 2vw, 18px);
+  grid-template-rows: repeat(5, minmax(52px, 1fr));
+  gap: clamp(8px, 2vw, 16px);
 }
 
 .key {
   min-width: 0;
-  min-height: 0;
+  min-height: 52px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: clamp(16px, 4vw, 28px);
+  border-radius: clamp(14px, 4vw, 26px);
   background: #202126;
   color: #f1f1f5;
   cursor: pointer;
@@ -143,7 +178,12 @@ button {
   background: #34363e;
 }
 
-.key:focus-visible {
+.key:focus-visible,
+.header-button:focus-visible,
+.angle-toggle:focus-visible,
+.history-close:focus-visible,
+.history-action:focus-visible,
+.history-clear:focus-visible {
   outline: 3px solid #80d8ff;
   outline-offset: 3px;
 }
@@ -176,20 +216,228 @@ button {
   grid-column: span 2;
 }
 
-@media (max-height: 600px) {
-  .calculator {
-    grid-template-rows: auto minmax(0, 0.8fr) minmax(0, 2.45fr);
-    gap: 10px;
-    padding-top: max(12px, env(safe-area-inset-top));
-    padding-bottom: max(12px, env(safe-area-inset-bottom));
+.scientific-panel {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.scientific-panel[hidden] {
+  display: none;
+}
+
+.scientific-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  color: #a4a6b1;
+  font-size: 13px;
+}
+
+.angle-toggle {
+  min-width: 58px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  color: #80d8ff;
+  font-weight: 700;
+}
+
+.scientific-keypad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.key-scientific {
+  min-height: 46px;
+  border-radius: 13px;
+  background: #292c35;
+  color: #80d8ff;
+  font-size: clamp(16px, 4vw, 21px);
+}
+
+.history-dialog {
+  width: min(92vw, 560px);
+  max-height: min(80dvh, 680px);
+  padding: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: #17181d;
+  color: #f7f7fa;
+}
+
+.history-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.history-header,
+.history-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.history-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.history-header p {
+  margin: 5px 0 0;
+  color: #999ba7;
+  font-size: 13px;
+}
+
+.history-close {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: 12px;
+  font-size: 26px;
+}
+
+.history-status {
+  min-height: 1.4em;
+  margin: 14px 0 4px;
+  color: #80d8ff;
+  font-size: 13px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 50dvh;
+  margin: 0;
+  padding: 0 4px 0 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: #202126;
+}
+
+.history-details {
+  min-width: 0;
+}
+
+.history-expression,
+.history-result {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.history-expression {
+  color: #a4a6b1;
+  font-size: 14px;
+}
+
+.history-result {
+  margin-top: 4px;
+  font-size: 21px;
+}
+
+.history-date {
+  display: block;
+  margin-top: 5px;
+  color: #828490;
+  font-size: 12px;
+}
+
+.history-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.history-action,
+.history-clear {
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.history-action-delete,
+.history-clear {
+  color: #ff9b9b;
+}
+
+.history-empty {
+  padding: 26px 12px;
+  color: #999ba7;
+  text-align: center;
+}
+
+.history-footer {
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+@media (max-width: 420px) {
+  .calculator-header {
+    gap: 7px;
   }
 
-  .keypad {
+  .header-button {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .history-dialog {
+    padding: 16px;
+  }
+
+  .history-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-height: 640px) {
+  .calculator {
+    gap: 8px;
+    padding-top: max(10px, env(safe-area-inset-top));
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+  }
+
+  .display-panel {
+    min-height: 110px;
+  }
+
+  .controls {
     gap: 8px;
   }
 
+  .keypad {
+    grid-template-rows: repeat(5, minmax(44px, 1fr));
+    gap: 7px;
+  }
+
   .key {
-    border-radius: 14px;
+    min-height: 44px;
+    border-radius: 13px;
+  }
+
+  .key-scientific {
+    min-height: 40px;
   }
 }
 

@@ -6,13 +6,37 @@
   <meta name="theme-color" content="#101114">
   <title>Kalkulator</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="unit-converter.css">
+  <link rel="stylesheet" href="percentage-tools.css">
   <script src="script.js" defer></script>
+  <script src="unit-converter.js" defer></script>
+  <script src="percentage-tools.js" defer></script>
 </head>
 <body>
   <main class="calculator" aria-label="Kalkulator">
     <header class="calculator-header">
       <span class="brand-mark" aria-hidden="true">∑</span>
       <h1>Kalkulator</h1>
+
+      <button
+        class="header-button scientific-toggle"
+        id="scientific-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="scientific-keypad"
+      >
+        Ilmiah
+      </button>
+
+      <button
+        class="header-button history-open"
+        id="history-open"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="history-dialog"
+      >
+        Riwayat
+      </button>
     </header>
 
     <section class="display-panel" aria-label="Layar kalkulator">
@@ -20,31 +44,74 @@
       <output class="display" id="display" aria-live="assertive" aria-atomic="true">0</output>
     </section>
 
-    <section class="keypad" aria-label="Tombol kalkulator">
-      <button class="key key-utility" type="button" data-action="clear" aria-label="Hapus semua">AC</button>
-      <button class="key key-utility" type="button" data-action="sign" aria-label="Ubah tanda">±</button>
-      <button class="key key-utility" type="button" data-action="percent" aria-label="Persen">%</button>
-      <button class="key key-operator" type="button" data-action="operator" data-value="/" aria-label="Bagi">÷</button>
+    <section class="controls" aria-label="Tombol kalkulator">
+      <div class="keypad" aria-label="Tombol dasar">
+        <button class="key key-utility" type="button" data-action="clear" aria-label="Hapus semua">AC</button>
+        <button class="key key-utility" type="button" data-action="sign" aria-label="Ubah tanda">±</button>
+        <button class="key key-utility" type="button" data-action="percent" aria-label="Persen">%</button>
+        <button class="key key-operator" type="button" data-action="operator" data-value="/" aria-label="Bagi">÷</button>
 
-      <button class="key" type="button" data-action="digit" data-value="7">7</button>
-      <button class="key" type="button" data-action="digit" data-value="8">8</button>
-      <button class="key" type="button" data-action="digit" data-value="9">9</button>
-      <button class="key key-operator" type="button" data-action="operator" data-value="*" aria-label="Kali">×</button>
+        <button class="key" type="button" data-action="digit" data-value="7">7</button>
+        <button class="key" type="button" data-action="digit" data-value="8">8</button>
+        <button class="key" type="button" data-action="digit" data-value="9">9</button>
+        <button class="key key-operator" type="button" data-action="operator" data-value="*" aria-label="Kali">×</button>
 
-      <button class="key" type="button" data-action="digit" data-value="4">4</button>
-      <button class="key" type="button" data-action="digit" data-value="5">5</button>
-      <button class="key" type="button" data-action="digit" data-value="6">6</button>
-      <button class="key key-operator" type="button" data-action="operator" data-value="-" aria-label="Kurang">−</button>
+        <button class="key" type="button" data-action="digit" data-value="4">4</button>
+        <button class="key" type="button" data-action="digit" data-value="5">5</button>
+        <button class="key" type="button" data-action="digit" data-value="6">6</button>
+        <button class="key key-operator" type="button" data-action="operator" data-value="-" aria-label="Kurang">−</button>
 
-      <button class="key" type="button" data-action="digit" data-value="1">1</button>
-      <button class="key" type="button" data-action="digit" data-value="2">2</button>
-      <button class="key" type="button" data-action="digit" data-value="3">3</button>
-      <button class="key key-operator" type="button" data-action="operator" data-value="+" aria-label="Tambah">+</button>
+        <button class="key" type="button" data-action="digit" data-value="1">1</button>
+        <button class="key" type="button" data-action="digit" data-value="2">2</button>
+        <button class="key" type="button" data-action="digit" data-value="3">3</button>
+        <button class="key key-operator" type="button" data-action="operator" data-value="+" aria-label="Tambah">+</button>
 
-      <button class="key key-zero" type="button" data-action="digit" data-value="0">0</button>
-      <button class="key" type="button" data-action="decimal" aria-label="Koma desimal">.</button>
-      <button class="key key-equals" type="button" data-action="equals" aria-label="Sama dengan">=</button>
+        <button class="key key-zero" type="button" data-action="digit" data-value="0">0</button>
+        <button class="key" type="button" data-action="decimal" aria-label="Koma desimal">.</button>
+        <button class="key key-equals" type="button" data-action="equals" aria-label="Sama dengan">=</button>
+      </div>
+
+      <section class="scientific-panel" id="scientific-keypad" aria-label="Fungsi ilmiah" hidden>
+        <div class="scientific-toolbar">
+          <span>Sudut</span>
+          <button class="angle-toggle" id="angle-toggle" type="button" aria-label="Mode sudut: derajat">
+            DEG
+          </button>
+        </div>
+
+        <div class="scientific-keypad">
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="sin">sin</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="cos">cos</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="tan">tan</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="pi">π</button>
+
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="log">log</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="ln">ln</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="sqrt">√x</button>
+          <button class="key key-scientific" type="button" data-action="operator" data-value="^" aria-label="Pangkat">xʸ</button>
+
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="square">x²</button>
+          <button class="key key-scientific" type="button" data-action="scientific" data-value="factorial">x!</button>
+        </div>
+      </section>
     </section>
   </main>
+
+  <dialog class="history-dialog" id="history-dialog" aria-labelledby="history-title">
+    <div class="history-header">
+      <div>
+        <h2 id="history-title">Riwayat</h2>
+        <p>Perhitungan tersimpan di perangkat ini.</p>
+      </div>
+      <button class="history-close" id="history-close" type="button" aria-label="Tutup riwayat">×</button>
+    </div>
+
+    <p class="history-status" id="history-status" aria-live="polite"></p>
+    <ol class="history-list" id="history-list"></ol>
+
+    <div class="history-footer">
+      <button class="history-clear" id="history-clear" type="button">Hapus semua</button>
+    </div>
+  </dialog>
 </body>
 </html>
