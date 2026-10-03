@@ -26,6 +26,7 @@ body {
   min-height: 100dvh;
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
   background:
     radial-gradient(ellipse at 50% 0%, rgba(47, 72, 125, 0.2), transparent 48%),
     #101114;
@@ -41,18 +42,19 @@ button {
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
-  grid-template-rows: auto minmax(140px, 1fr) auto;
-  gap: clamp(12px, 2vh, 24px);
+  grid-template-rows: auto minmax(120px, 1fr) auto;
+  gap: clamp(10px, 2vh, 22px);
   padding:
-    max(18px, env(safe-area-inset-top))
-    clamp(16px, 4vw, 36px)
-    max(18px, env(safe-area-inset-bottom));
+    max(14px, env(safe-area-inset-top))
+    clamp(12px, 4vw, 36px)
+    max(14px, env(safe-area-inset-bottom));
 }
 
 .calculator-header {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
   min-height: 40px;
 }
 
@@ -71,6 +73,7 @@ button {
 }
 
 .calculator-header h1 {
+  min-width: 0;
   margin: 0;
   color: #c4c5ce;
   font-size: clamp(15px, 2.5vw, 18px);
@@ -91,6 +94,7 @@ button {
 }
 
 .header-button {
+  flex: 0 0 auto;
   padding: 9px 11px;
   border-radius: 12px;
   font-size: 13px;
@@ -110,6 +114,7 @@ button {
 }
 
 .display-panel {
+  min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -120,12 +125,12 @@ button {
 }
 
 .expression {
-  min-height: 1.5em;
   max-width: 100%;
+  min-height: 1.5em;
   margin: 0 0 8px;
   overflow: hidden;
   color: #888b98;
-  font-size: clamp(16px, 3.5vw, 24px);
+  font-size: clamp(15px, 3.5vw, 24px);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -135,7 +140,7 @@ button {
   max-width: 100%;
   overflow: hidden;
   color: #f7f7fa;
-  font-size: clamp(48px, 12vw, 96px);
+  font-size: clamp(38px, 11vw, 88px);
   font-weight: 300;
   letter-spacing: -0.055em;
   line-height: 1.1;
@@ -144,6 +149,7 @@ button {
 }
 
 .controls {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -152,21 +158,21 @@ button {
 .keypad {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(5, minmax(52px, 1fr));
-  gap: clamp(8px, 2vw, 16px);
+  grid-template-rows: repeat(5, minmax(clamp(46px, 8vh, 72px), 1fr));
+  gap: clamp(6px, 2vw, 16px);
 }
 
 .key {
   min-width: 0;
-  min-height: 52px;
+  min-height: 46px;
   display: grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: clamp(14px, 4vw, 26px);
+  border-radius: clamp(13px, 4vw, 26px);
   background: #202126;
   color: #f1f1f5;
   cursor: pointer;
-  font-size: clamp(22px, 5.5vw, 34px);
+  font-size: clamp(20px, 5.5vw, 34px);
   font-weight: 500;
   transition: background-color 120ms ease, transform 120ms ease;
   touch-action: manipulation;
@@ -191,20 +197,20 @@ button {
 .key-utility {
   background: #303139;
   color: #c9cad2;
-  font-size: clamp(18px, 4.5vw, 26px);
+  font-size: clamp(17px, 4.5vw, 26px);
 }
 
 .key-operator {
   background: #292c35;
   color: #80d8ff;
-  font-size: clamp(25px, 6vw, 38px);
+  font-size: clamp(23px, 6vw, 38px);
 }
 
 .key-equals {
   border-color: transparent;
   background: #67c7f2;
   color: #07141b;
-  font-size: clamp(27px, 6vw, 40px);
+  font-size: clamp(25px, 6vw, 40px);
   font-weight: 700;
 }
 
@@ -251,17 +257,19 @@ button {
 }
 
 .key-scientific {
+  min-width: 0;
   min-height: 46px;
   border-radius: 13px;
   background: #292c35;
   color: #80d8ff;
-  font-size: clamp(16px, 4vw, 21px);
+  font-size: clamp(15px, 4vw, 21px);
 }
 
 .history-dialog {
   width: min(92vw, 560px);
+  max-width: calc(100vw - 24px);
   max-height: min(80dvh, 680px);
-  padding: 20px;
+  padding: clamp(14px, 4vw, 20px);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
@@ -279,6 +287,10 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+.history-header > div {
+  min-width: 0;
 }
 
 .history-header h2 {
@@ -387,18 +399,45 @@ button {
   margin-top: 14px;
 }
 
-@media (max-width: 420px) {
-  .calculator-header {
-    gap: 7px;
+@media (max-width: 520px) {
+  .calculator {
+    gap: 10px;
+    padding-right: max(12px, env(safe-area-inset-right));
+    padding-left: max(12px, env(safe-area-inset-left));
   }
 
-  .header-button {
-    padding: 8px;
-    font-size: 12px;
+  .calculator-header {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .brand-mark {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .calculator-header h1 {
+    grid-column: 2 / -1;
+    grid-row: 1;
+    align-self: center;
+  }
+
+  .calculator-header > .header-button {
+    width: 100%;
+    min-width: 0;
+    grid-row: 2;
+    padding: 8px 4px !important;
+    font-size: clamp(10px, 3vw, 12px) !important;
+    text-align: center;
+  }
+
+  .scientific-toggle {
+    margin-left: 0;
   }
 
   .history-dialog {
-    padding: 16px;
+    width: calc(100vw - 24px);
   }
 
   .history-item {
@@ -411,15 +450,43 @@ button {
   }
 }
 
+@media (max-width: 360px) {
+  .calculator-header {
+    gap: 6px;
+  }
+
+  .calculator-header > .header-button {
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+    font-size: 10px !important;
+  }
+
+  .controls {
+    gap: 8px;
+  }
+
+  .keypad {
+    gap: 6px;
+  }
+
+  .key {
+    border-radius: 13px;
+  }
+
+  .scientific-panel {
+    padding: 9px;
+  }
+}
+
 @media (max-height: 640px) {
   .calculator {
     gap: 8px;
-    padding-top: max(10px, env(safe-area-inset-top));
-    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
   }
 
   .display-panel {
-    min-height: 110px;
+    min-height: 100px;
   }
 
   .controls {
