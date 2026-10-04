@@ -1,0 +1,339 @@
+.selling-page {
+  width: min(100%, 1050px);
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 42px);
+}
+
+.selling-heading {
+  margin-bottom: 22px;
+}
+
+.selling-heading h1 {
+  margin: 9px 0 8px;
+  font-size: clamp(25px, 4vw, 36px);
+  letter-spacing: -0.04em;
+}
+
+.selling-description {
+  max-width: 700px;
+  margin: 0;
+  color: #a2a5b0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.selling-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.selling-panel,
+.selling-results,
+.selling-saved-panel {
+  min-width: 0;
+  padding: clamp(16px, 3vw, 22px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.selling-panel h2,
+.selling-saved-panel h2 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+.selling-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.selling-field {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+  color: #a5a7b1;
+  font-size: 12px;
+}
+
+.selling-field-wide {
+  grid-column: 1 / -1;
+}
+
+.selling-field input,
+.selling-field select {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  background: #202126;
+  color: #f7f7fa;
+  font: inherit;
+  font-size: 14px;
+}
+
+.selling-field input:focus-visible,
+.selling-field select:focus-visible,
+.selling-actions button:focus-visible,
+.selling-saved-item button:focus-visible {
+  outline: 3px solid #80d8ff;
+  outline-offset: 2px;
+}
+
+.selling-hint {
+  margin: 14px 0 0;
+  color: #9396a2;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.selling-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.selling-actions button,
+.selling-saved-item button {
+  min-height: 41px;
+  padding: 9px 13px;
+  border-radius: 11px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.selling-save {
+  border: 1px solid transparent;
+  background: #67c7f2;
+  color: #07141b;
+}
+
+.selling-new {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #202126;
+  color: #e3e4ea;
+}
+
+.selling-message {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  color: #ffaaaa;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.selling-message[data-kind="success"] {
+  color: #79dda8;
+}
+
+.selling-results {
+  border-color: rgba(128, 216, 255, 0.18);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(103, 199, 242, 0.09), transparent 45%),
+    rgba(255, 255, 255, 0.035);
+}
+
+.selling-result-label {
+  margin: 0;
+  color: #80d8ff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.selling-price {
+  display: block;
+  margin: 8px 0 18px;
+  color: #f7f7fa;
+  font-size: clamp(27px, 5vw, 38px);
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
+}
+
+.selling-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.selling-metric {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  background: rgba(16, 17, 20, 0.42);
+}
+
+.selling-metric span,
+.selling-metric strong {
+  display: block;
+}
+
+.selling-metric span {
+  color: #979aa6;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.selling-metric strong {
+  margin-top: 7px;
+  color: #f4f4f7;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.selling-saved-panel {
+  margin-top: 16px;
+}
+
+.selling-saved-panel h2 {
+  margin-bottom: 12px;
+}
+
+.selling-empty {
+  margin: 0;
+  color: #9396a2;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.selling-saved-list {
+  display: grid;
+  gap: 9px;
+}
+
+.selling-saved-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(16, 17, 20, 0.35);
+}
+
+.selling-saved-info {
+  min-width: 0;
+}
+
+.selling-saved-info strong,
+.selling-saved-info span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.selling-saved-info strong {
+  color: #f1f1f5;
+  font-size: 13px;
+}
+
+.selling-saved-info span {
+  margin-top: 4px;
+  color: #979aa6;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.selling-saved-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 6px;
+}
+
+.selling-saved-item button {
+  min-height: 34px;
+  padding: 7px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #202126;
+  color: #e3e4ea;
+  font-size: 12px;
+}
+
+.selling-saved-item .selling-delete {
+  color: #ffaaaa;
+}
+
+html[data-theme="light"] .selling-description,
+html[data-theme="light"] .selling-field,
+html[data-theme="light"] .selling-hint,
+html[data-theme="light"] .selling-empty {
+  color: #64748b;
+}
+
+html[data-theme="light"] .selling-heading h1,
+html[data-theme="light"] .selling-panel h2,
+html[data-theme="light"] .selling-saved-panel h2 {
+  color: #172033;
+}
+
+html[data-theme="light"] .selling-panel,
+html[data-theme="light"] .selling-saved-panel {
+  border-color: rgba(23, 32, 51, 0.1);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+html[data-theme="light"] .selling-results {
+  border-color: rgba(23, 32, 51, 0.1);
+  background-color: rgba(255, 255, 255, 0.78);
+}
+
+html[data-theme="light"] .selling-field input,
+html[data-theme="light"] .selling-field select,
+html[data-theme="light"] .selling-saved-item button {
+  border-color: rgba(23, 32, 51, 0.14);
+  background: #fff;
+  color: #172033;
+}
+
+html[data-theme="light"] .selling-price,
+html[data-theme="light"] .selling-saved-info strong {
+  color: #172033;
+}
+
+html[data-theme="light"] .selling-metric,
+html[data-theme="light"] .selling-saved-item {
+  border-color: rgba(23, 32, 51, 0.1);
+  background: rgba(244, 247, 251, 0.9);
+}
+
+html[data-theme="light"] .selling-metric strong {
+  color: #172033;
+}
+
+@media (max-width: 800px) {
+  .selling-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .selling-page {
+    padding: 22px 15px;
+  }
+
+  .selling-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .selling-saved-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .selling-saved-actions {
+    width: 100%;
+  }
+
+  .selling-saved-actions button {
+    flex: 1;
+  }
+}

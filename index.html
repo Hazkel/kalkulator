@@ -4,111 +4,484 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#101114">
+  <meta name="description" content="Kalkulator dan alat hitung offline.">
   <title>Kalkulator</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="unit-converter.css">
   <link rel="stylesheet" href="percentage-tools.css">
   <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="app-shell.css">
+  <link rel="stylesheet" href="calculator-header-buttons.css">
+  <link rel="stylesheet" href="price-selling.css">
+  <link rel="stylesheet" href="recipe-scaler.css">
+
   <script src="script.js" defer></script>
   <script src="unit-converter.js" defer></script>
   <script src="percentage-tools.js" defer></script>
   <script src="theme.js" defer></script>
+  <script src="price-comparison.js" defer></script>
+  <script src="app-shell.js" defer></script>
+  <script src="price-selling.js" defer></script>
+  <script src="recipe-scaler.js" defer></script>
 </head>
 <body>
-  <main class="calculator" aria-label="Kalkulator">
-    <header class="calculator-header">
-      <span class="brand-mark" aria-hidden="true">∑</span>
-      <h1>Kalkulator</h1>
+  <div class="app-shell">
+    <aside class="app-sidebar" aria-label="Navigasi fitur">
+      <a class="app-brand" href="#calculator-view" data-view="calculator-view">
+        <span class="app-brand-mark" aria-hidden="true">∑</span>
+        <span>
+          <strong>Kalkulator</strong>
+          <small>Alat hitung offline</small>
+        </span>
+      </a>
 
-      <button
-        class="header-button scientific-toggle"
-        id="scientific-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-controls="scientific-keypad"
-      >
-        Ilmiah
-      </button>
+      <p class="sidebar-heading">FITUR</p>
 
-      <button
-        class="header-button history-open"
-        id="history-open"
-        type="button"
-        aria-haspopup="dialog"
-        aria-controls="history-dialog"
-      >
-        Riwayat
-      </button>
+      <nav class="sidebar-nav">
+        <button
+          class="sidebar-link is-active"
+          type="button"
+          data-view="calculator-view"
+          aria-current="page"
+        >
+          <span aria-hidden="true">⌗</span>
+          <span>Kalkulator</span>
+        </button>
 
-<button
-  class="header-button theme-toggle"
-  id="theme-toggle"
-  type="button"
-  aria-label="Aktifkan tema terang"
-  title="Aktifkan tema terang"
->
-  ☀
+        <button
+          class="sidebar-link"
+          type="button"
+          data-view="price-view"
+        >
+          <span aria-hidden="true">⇄</span>
+          <span>Harga satuan</span>
+        </button>
+
+        <button class="sidebar-link" type="button" data-tool="unit">
+          <span aria-hidden="true">↔</span>
+          <span>Konversi satuan</span>
+        </button>
+
+        <button class="sidebar-link" type="button" data-tool="percentage">
+          <span aria-hidden="true">%</span>
+          <span>Persentase &amp; diskon</span>
+        </button>
+
+<button class="sidebar-link" type="button" data-view="selling-price-view">
+  <span aria-hidden="true">Rp</span>
+  <span>Harga jual</span>
 </button>
 
-    </header>
+<button class="sidebar-link" type="button" data-view="recipe-scaler-view">
+  <span aria-hidden="true">🥣</span>
+  <span>Takaran resep</span>
+</button>
 
-    <section class="display-panel" aria-label="Layar kalkulator">
-      <p class="expression" id="expression" aria-live="polite"></p>
-      <output class="display" id="display" aria-live="assertive" aria-atomic="true">0</output>
-    </section>
+      </nav>
 
-    <section class="controls" aria-label="Tombol kalkulator">
-      <div class="keypad" aria-label="Tombol dasar">
-        <button class="key key-utility" type="button" data-action="clear" aria-label="Hapus semua">AC</button>
-        <button class="key key-utility" type="button" data-action="sign" aria-label="Ubah tanda">±</button>
-        <button class="key key-utility" type="button" data-action="percent" aria-label="Persen">%</button>
-        <button class="key key-operator" type="button" data-action="operator" data-value="/" aria-label="Bagi">÷</button>
-
-        <button class="key" type="button" data-action="digit" data-value="7">7</button>
-        <button class="key" type="button" data-action="digit" data-value="8">8</button>
-        <button class="key" type="button" data-action="digit" data-value="9">9</button>
-        <button class="key key-operator" type="button" data-action="operator" data-value="*" aria-label="Kali">×</button>
-
-        <button class="key" type="button" data-action="digit" data-value="4">4</button>
-        <button class="key" type="button" data-action="digit" data-value="5">5</button>
-        <button class="key" type="button" data-action="digit" data-value="6">6</button>
-        <button class="key key-operator" type="button" data-action="operator" data-value="-" aria-label="Kurang">−</button>
-
-        <button class="key" type="button" data-action="digit" data-value="1">1</button>
-        <button class="key" type="button" data-action="digit" data-value="2">2</button>
-        <button class="key" type="button" data-action="digit" data-value="3">3</button>
-        <button class="key key-operator" type="button" data-action="operator" data-value="+" aria-label="Tambah">+</button>
-
-        <button class="key key-zero" type="button" data-action="digit" data-value="0">0</button>
-        <button class="key" type="button" data-action="decimal" aria-label="Koma desimal">.</button>
-        <button class="key key-equals" type="button" data-action="equals" aria-label="Sama dengan">=</button>
+      <div class="sidebar-note">
+        <span class="offline-dot" aria-hidden="true"></span>
+        Bisa digunakan offline
       </div>
+    </aside>
 
-      <section class="scientific-panel" id="scientific-keypad" aria-label="Fungsi ilmiah" hidden>
-        <div class="scientific-toolbar">
-          <span>Sudut</span>
-          <button class="angle-toggle" id="angle-toggle" type="button" aria-label="Mode sudut: derajat">
-            DEG
-          </button>
+    <main class="app-main">
+      <header class="app-topbar">
+        <div>
+          <p class="topbar-kicker">ALAT BANTU HARIAN</p>
+          <p class="topbar-title">Sederhana, praktis, dan offline</p>
         </div>
+        <button
+          class="header-button theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Aktifkan tema terang"
+          title="Aktifkan tema terang"
+        >☀</button>
+      </header>
 
-        <div class="scientific-keypad">
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="sin">sin</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="cos">cos</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="tan">tan</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="pi">π</button>
+      <section class="app-view" id="calculator-view">
+        <main class="calculator" aria-label="Kalkulator">
+          <header class="calculator-header">
+            <span class="brand-mark" aria-hidden="true">∑</span>
+            <h1>Kalkulator</h1>
 
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="log">log</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="ln">ln</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="sqrt">√x</button>
-          <button class="key key-scientific" type="button" data-action="operator" data-value="^" aria-label="Pangkat">xʸ</button>
+            <button
+              class="header-button history-open"
+              id="history-open"
+              type="button"
+              aria-haspopup="dialog"
+              aria-controls="history-dialog"
+            >Riwayat</button>
+          </header>
 
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="square">x²</button>
-          <button class="key key-scientific" type="button" data-action="scientific" data-value="factorial">x!</button>
+          <section class="display-panel" aria-label="Layar kalkulator">
+            <p class="expression" id="expression" aria-live="polite"></p>
+            <output class="display" id="display" aria-live="assertive" aria-atomic="true">0</output>
+          </section>
+
+          <section class="controls" aria-label="Tombol kalkulator">
+            <div class="keypad" aria-label="Tombol dasar">
+              <button class="key key-utility" type="button" data-action="clear" aria-label="Hapus semua">AC</button>
+              <button class="key key-utility" type="button" data-action="sign" aria-label="Ubah tanda">±</button>
+              <button class="key key-utility" type="button" data-action="percent" aria-label="Persen">%</button>
+              <button class="key key-operator" type="button" data-action="operator" data-value="/" aria-label="Bagi">÷</button>
+              <button class="key key-utility" type="button" data-action="delete" aria-label="Hapus satu angka">⌫</button>
+
+              <button class="key" type="button" data-action="digit" data-value="7">7</button>
+              <button class="key" type="button" data-action="digit" data-value="8">8</button>
+              <button class="key" type="button" data-action="digit" data-value="9">9</button>
+              <button class="key key-operator" type="button" data-action="operator" data-value="*" aria-label="Kali">×</button>
+
+              <button class="key" type="button" data-action="digit" data-value="4">4</button>
+              <button class="key" type="button" data-action="digit" data-value="5">5</button>
+              <button class="key" type="button" data-action="digit" data-value="6">6</button>
+              <button class="key key-operator" type="button" data-action="operator" data-value="-" aria-label="Kurang">−</button>
+
+              <button class="key" type="button" data-action="digit" data-value="1">1</button>
+              <button class="key" type="button" data-action="digit" data-value="2">2</button>
+              <button class="key" type="button" data-action="digit" data-value="3">3</button>
+              <button class="key key-operator" type="button" data-action="operator" data-value="+" aria-label="Tambah">+</button>
+
+              <button class="key key-zero" type="button" data-action="digit" data-value="0">0</button>
+              <button class="key" type="button" data-action="decimal" aria-label="Koma desimal">.</button>
+              <button class="key key-equals" type="button" data-action="equals" aria-label="Sama dengan">=</button>
+            </div>
+
+            <section class="scientific-panel" id="scientific-keypad" aria-label="Fungsi ilmiah" hidden>
+              <div class="scientific-toolbar">
+                <span>Sudut</span>
+                <button class="angle-toggle" id="angle-toggle" type="button" aria-label="Mode sudut: derajat">DEG</button>
+              </div>
+
+
+              <div class="scientific-keypad">
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="sin">sin</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="cos">cos</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="tan">tan</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="pi">π</button>
+
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="log">log</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="ln">ln</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="sqrt">√x</button>
+                <button class="key key-scientific" type="button" data-action="operator" data-value="^" aria-label="Pangkat">xʸ</button>
+
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="square">x²</button>
+                <button class="key key-scientific" type="button" data-action="scientific" data-value="factorial">x!</button>
+              </div>
+            </section>
+          </section>
+        </main>
+      </section>
+
+      <section class="app-view price-view" id="price-view" hidden>
+        <div class="price-page">
+          <div class="price-heading">
+            <div>
+              <p class="page-eyebrow">BELANJA LEBIH CERDAS</p>
+              <h1>Kalkulator harga satuan</h1>
+              <p class="page-description">
+                Bandingkan harga berdasarkan berat, volume, atau jumlah isi—bukan hanya harga kemasan.
+              </p>
+            </div>
+
+            <label class="price-category-field">
+              <span>Bandingkan berdasarkan</span>
+              <select id="price-category">
+                <option value="mass">Berat</option>
+                <option value="volume">Volume</option>
+                <option value="count">Jumlah isi</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="example-note">
+            <span class="example-icon" aria-hidden="true">i</span>
+            <span>Contoh berat: Rp18.000 / 250 g dibandingkan Rp29.000 / 500 g.</span>
+          </div>
+
+          <div class="product-list" id="product-list" aria-label="Daftar produk yang dibandingkan"></div>
+
+          <div class="price-actions">
+            <button class="secondary-button" id="add-product" type="button">＋ Tambah produk</button>
+            <button class="primary-button" id="reset-products" type="button">Muat contoh</button>
+          </div>
+
+          <p class="price-error" id="price-error" aria-live="polite"></p>
+
+          <section class="comparison-result" aria-labelledby="result-title" aria-live="polite">
+            <div class="result-heading">
+              <div>
+                <p class="page-eyebrow">HASIL PERBANDINGAN</p>
+                <h2 id="result-title">Ringkasan harga</h2>
+              </div>
+              <span class="best-badge" id="best-badge">—</span>
+            </div>
+
+            <p class="result-summary" id="result-summary">
+              Isi data produk untuk membandingkan harga satuannya.
+            </p>
+
+            <div class="result-metrics">
+              <article class="metric-card">
+                <span>Selisih harga satuan</span>
+                <strong id="unit-difference">—</strong>
+              </article>
+              <article class="metric-card">
+                <span>Potensi penghematan</span>
+                <strong id="saving-percent">—</strong>
+              </article>
+              <article class="metric-card">
+                <span>Jumlah setara</span>
+                <strong id="equivalent-quantity">—</strong>
+              </article>
+            </div>
+
+            <div class="equivalent-section">
+              <h3>Harga pada jumlah yang sama</h3>
+              <p id="equivalent-caption">Jumlah acuan mengikuti kemasan produk pertama.</p>
+              <div class="equivalent-list" id="equivalent-list"></div>
+            </div>
+          </section>
+
+          <p class="price-footnote">
+            Penghematan dihitung dari perbedaan harga satuan produk termurah dan termahal.
+            Perbandingan hanya berlaku untuk jenis satuan yang sama.
+          </p>
         </div>
       </section>
+
+<section class="app-view" id="selling-price-view" hidden>
+  <div class="selling-page">
+    <header class="selling-heading">
+      <p class="page-eyebrow">UNTUK USAHA ANDA</p>
+      <h1>Kalkulator Harga Jual</h1>
+      <p class="selling-description">
+        Hitung harga jual dengan memperhitungkan seluruh biaya, biaya marketplace,
+        dan target keuntungan. Produk tersimpan hanya di perangkat ini.
+      </p>
+    </header>
+
+    <div class="selling-layout">
+      <form class="selling-panel" id="selling-form">
+        <h2>Data produk dan biaya</h2>
+
+        <div class="selling-fields">
+          <label class="selling-field selling-field-wide" for="selling-name">
+            <span>Nama produk</span>
+            <input
+              id="selling-name"
+              type="text"
+              maxlength="80"
+              autocomplete="off"
+              placeholder="Contoh: Kopi Arabika 200 g"
+              required
+            >
+          </label>
+
+          <label class="selling-field" for="selling-item-cost">
+            <span>Modal barang (Rp)</span>
+            <input id="selling-item-cost" type="number" min="0" step="any" value="0" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-packaging-cost">
+            <span>Biaya kemasan (Rp)</span>
+            <input id="selling-packaging-cost" type="number" min="0" step="any" value="0" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-production-cost">
+            <span>Ongkos produksi (Rp)</span>
+            <input id="selling-production-cost" type="number" min="0" step="any" value="0" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-operational-cost">
+            <span>Biaya operasional per produk (Rp)</span>
+            <input id="selling-operational-cost" type="number" min="0" step="any" value="0" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-platform-fee">
+            <span>Biaya platform marketplace (%)</span>
+            <input id="selling-platform-fee" type="number" min="0" max="99.99" step="any" value="0" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-method">
+            <span>Metode target keuntungan</span>
+            <select id="selling-method">
+              <option value="markup">Markup — persentase dari total biaya</option>
+              <option value="margin">Margin — persentase dari harga jual</option>
+            </select>
+          </label>
+
+          <label class="selling-field" for="selling-target">
+            <span>Target keuntungan (%)</span>
+            <input id="selling-target" type="number" min="0" max="99.99" step="any" value="30" inputmode="decimal" required>
+          </label>
+
+          <label class="selling-field" for="selling-rounding">
+            <span>Bulatkan harga ke atas</span>
+            <select id="selling-rounding">
+              <option value="1">Rp1</option>
+              <option value="100" selected>Rp100</option>
+              <option value="500">Rp500</option>
+              <option value="1000">Rp1.000</option>
+            </select>
+          </label>
+
+          <label class="selling-field" for="selling-quantity">
+            <span>Estimasi jumlah produk terjual</span>
+            <input id="selling-quantity" type="number" min="1" step="1" value="10" inputmode="numeric" required>
+          </label>
+        </div>
+
+        <p class="selling-hint">
+          Biaya marketplace dihitung dari harga jual. Biaya operasional diisi per produk.
+          Markup dan margin adalah metode yang berbeda; pilih sesuai target Anda.
+        </p>
+
+        <div class="selling-actions">
+          <button class="selling-save" id="selling-save" type="submit">Simpan produk</button>
+          <button class="selling-new" id="selling-new" type="button">Produk baru</button>
+        </div>
+
+        <p class="selling-message" id="selling-message" role="status" aria-live="polite"></p>
+      </form>
+
+      <section class="selling-results" aria-labelledby="selling-results-title" aria-live="polite">
+        <p class="selling-result-label" id="selling-results-title">HASIL PERHITUNGAN</p>
+        <strong class="selling-price" id="selling-price-result">—</strong>
+
+        <div class="selling-metrics">
+          <article class="selling-metric">
+            <span>Keuntungan bersih per produk</span>
+            <strong id="selling-net-profit">—</strong>
+          </article>
+          <article class="selling-metric">
+            <span>Margin keuntungan aktual</span>
+            <strong id="selling-margin-result">—</strong>
+          </article>
+          <article class="selling-metric">
+            <span>Estimasi keuntungan dari jumlah terjual</span>
+            <strong id="selling-estimated-profit">—</strong>
+          </article>
+          <article class="selling-metric">
+            <span>Total biaya per produk</span>
+            <strong id="selling-total-cost">—</strong>
+          </article>
+          <article class="selling-metric">
+            <span>Potongan marketplace per produk</span>
+            <strong id="selling-platform-cost-result">—</strong>
+          </article>
+        </div>
+
+        <p class="selling-hint">
+          Harga yang disarankan dibulatkan ke atas sesuai pilihan. Keuntungan dan margin
+          dihitung dari harga jual setelah pembulatan dan setelah potongan marketplace.
+        </p>
+      </section>
+    </div>
+
+    <section class="selling-saved-panel" aria-labelledby="selling-saved-title">
+      <h2 id="selling-saved-title">Produk tersimpan</h2>
+      <div class="selling-saved-list" id="selling-saved-list"></div>
     </section>
-  </main>
+  </div>
+</section>
+
+<section class="app-view" id="recipe-scaler-view" hidden>
+  <div class="recipe-page">
+    <header class="recipe-heading">
+      <p class="page-eyebrow">MASAK SESUAI JUMLAH PORSI</p>
+      <h1>Pengubah Takaran Resep</h1>
+      <p class="recipe-description">
+        Masukkan jumlah porsi dan takaran bahan. Takaran baru dihitung otomatis
+        dan tetap bisa digunakan offline.
+      </p>
+    </header>
+
+    <div class="recipe-layout">
+      <section class="recipe-panel" aria-labelledby="recipe-input-title">
+        <h2 id="recipe-input-title">Porsi dan bahan resep</h2>
+
+        <div class="recipe-serving-fields">
+          <label class="recipe-field" for="recipe-original-servings">
+            <span>Jumlah porsi resep asli</span>
+            <input
+              id="recipe-original-servings"
+              type="text"
+              inputmode="decimal"
+              value="4"
+              maxlength="16"
+              autocomplete="off"
+            >
+          </label>
+
+          <label class="recipe-field" for="recipe-desired-servings">
+            <span>Jumlah porsi yang diinginkan</span>
+            <input
+              id="recipe-desired-servings"
+              type="text"
+              inputmode="decimal"
+              value="10"
+              maxlength="16"
+              autocomplete="off"
+            >
+          </label>
+
+          <label class="recipe-field" for="recipe-rounding">
+            <span>Pembulatan takaran ke atas</span>
+            <select id="recipe-rounding"></select>
+          </label>
+        </div>
+
+        <h2>Bahan-bahan</h2>
+        <div
+          class="recipe-ingredient-list"
+          id="recipe-ingredients"
+          aria-label="Daftar bahan resep"
+        ></div>
+
+        <button
+          class="recipe-add-ingredient"
+          id="recipe-add-ingredient"
+          type="button"
+        >
+          + Tambah bahan
+        </button>
+
+        <p class="recipe-hint">
+          Takaran desimal boleh ditulis dengan koma atau titik. Pembulatan berlaku
+          pada satuan yang dipilih untuk setiap bahan.
+        </p>
+
+        <p
+          class="recipe-status"
+          id="recipe-status"
+          role="status"
+          aria-live="polite"
+        ></p>
+      </section>
+
+      <section class="recipe-panel recipe-results-panel" aria-labelledby="recipe-result-title">
+        <h2 id="recipe-result-title">Takaran untuk resep baru</h2>
+
+        <div class="recipe-ratio-card">
+          <span>Faktor pengali resep</span>
+          <strong id="recipe-ratio">—</strong>
+        </div>
+
+        <ul
+          class="recipe-results"
+          id="recipe-results"
+          aria-live="polite"
+          aria-relevant="additions text"
+        ></ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+    </main>
+  </div>
 
   <dialog class="history-dialog" id="history-dialog" aria-labelledby="history-title">
     <div class="history-header">

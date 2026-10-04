@@ -7,6 +7,9 @@ const historyStatus = document.getElementById("history-status");
 const scientificPanel = document.getElementById("scientific-keypad");
 const scientificToggle = document.getElementById("scientific-toggle");
 const angleToggle = document.getElementById("angle-toggle");
+const historyOpen = document.getElementById("history-open");
+const historyClose = document.getElementById("history-close");
+const historyClear = document.getElementById("history-clear");
 
 const HISTORY_STORAGE_KEY = "kalkulator-history-v1";
 const MAX_HISTORY_ITEMS = 100;
@@ -41,9 +44,13 @@ function normalizeNumber(value) {
 function loadHistory() {
   try {
     const savedHistory = localStorage.getItem(HISTORY_STORAGE_KEY);
-    if (!savedHistory) return [];
+
+    if (!savedHistory) {
+      return [];
+    }
 
     const parsedHistory = JSON.parse(savedHistory);
+
     if (!Array.isArray(parsedHistory)) {
       console.error("Format riwayat kalkulator tidak valid.");
       return [];
@@ -67,12 +74,17 @@ function loadHistory() {
 }
 
 function setHistoryStatus(message) {
-  historyStatus.textContent = message;
+  if (historyStatus) {
+    historyStatus.textContent = message;
+  }
 }
 
 function saveHistory() {
   try {
-    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(calculationHistory));
+    localStorage.setItem(
+      HISTORY_STORAGE_KEY,
+      JSON.stringify(calculationHistory)
+    );
     return true;
   } catch (error) {
     console.error("Riwayat kalkulator gagal disimpan:", error);
@@ -94,6 +106,11 @@ function addHistoryEntry(calculationExpression, result) {
 }
 
 function render() {
+  if (!display || !expression) {
+    console.error("Layar kalkulator tidak ditemukan.");
+    return;
+  }
+
   display.textContent = hasError ? "Error" : currentValue;
 
   if (hasError) {
@@ -107,7 +124,9 @@ function render() {
 }
 
 function resetAfterError() {
-  if (!hasError) return;
+  if (!hasError) {
+    return;
+  }
 
   currentValue = "0";
   storedValue = null;
@@ -162,20 +181,32 @@ function enterDecimal() {
 
 function calculate(a, b, operator) {
   switch (operator) {
-    case "+": return a + b;
-    case "-": return a - b;
-    case "*": return a * b;
-    case "/": return b === 0 ? null : a / b;
-    case "^": return a ** b;
-    default: return null;
+    case "+":
+      return a + b;
+    case "-":
+      return a - b;
+    case "*":
+      return a * b;
+    case "/":
+      return b === 0 ? null : a / b;
+    case "^":
+      return a ** b;
+    default:
+      return null;
   }
 }
 
 function chooseOperator(operator) {
-  if (hasError) return;
+  if (hasError) {
+    return;
+  }
 
   if (pendingOperator && !shouldResetOnDigit && storedValue !== null) {
-    const result = calculate(storedValue, Number(currentValue), pendingOperator);
+    const result = calculate(
+      storedValue,
+      Number(currentValue),
+      pendingOperator
+    );
     const normalized = normalizeNumber(result);
 
     if (normalized === null) {
@@ -194,7 +225,9 @@ function chooseOperator(operator) {
 }
 
 function calculateResult() {
-  if (hasError || !pendingOperator || storedValue === null) return;
+  if (hasError || !pendingOperator || storedValue === null) {
+    return;
+  }
 
   const firstValue = storedValue;
   const secondValue = Number(currentValue);
@@ -203,9 +236,11 @@ function calculateResult() {
   const normalized = normalizeNumber(result);
 
   if (normalized === null) {
-    showError(operator === "/" && secondValue === 0
-      ? "Tidak dapat membagi dengan nol"
-      : "Operasi tidak terdefinisi");
+    showError(
+      operator === "/" && secondValue === 0
+        ? "Tidak dapat membagi dengan nol"
+        : "Operasi tidak terdefinisi"
+    );
     return;
   }
 
@@ -227,11 +262,17 @@ function toRadians(value) {
 }
 
 function applyScientificFunction(functionName) {
-  if (hasError) return;
+  if (hasError) {
+    return;
+  }
 
   if (functionName === "pi") {
     resetAfterError();
-    if (shouldResetOnDigit) expressionLabel = "";
+
+    if (shouldResetOnDigit) {
+      expressionLabel = "";
+    }
+
     currentValue = normalizeNumber(Math.PI);
     shouldResetOnDigit = false;
     render();
@@ -247,70 +288,88 @@ function applyScientificFunction(functionName) {
       result = Math.sin(toRadians(value));
       label = `sin(${currentValue}${angleMode === "DEG" ? "°" : " rad"})`;
       break;
+
     case "cos":
       result = Math.cos(toRadians(value));
       label = `cos(${currentValue}${angleMode === "DEG" ? "°" : " rad"})`;
       break;
+
     case "tan": {
       const radians = toRadians(value);
+
       if (Math.abs(Math.cos(radians)) < 1e-12) {
         showError("Tangen tidak terdefinisi");
         return;
       }
+
       result = Math.tan(radians);
       label = `tan(${currentValue}${angleMode === "DEG" ? "°" : " rad"})`;
       break;
     }
+
     case "log":
       if (value <= 0) {
         showError("log hanya berlaku untuk angka > 0");
         return;
       }
+
       result = Math.log10(value);
       label = `log(${currentValue})`;
       break;
+
     case "ln":
       if (value <= 0) {
         showError("ln hanya berlaku untuk angka > 0");
         return;
       }
+
       result = Math.log(value);
       label = `ln(${currentValue})`;
       break;
+
     case "sqrt":
       if (value < 0) {
         showError("Akar kuadrat tidak berlaku untuk angka negatif");
         return;
       }
+
       result = Math.sqrt(value);
       label = `√(${currentValue})`;
       break;
+
     case "square":
       result = value ** 2;
       label = `(${currentValue})²`;
       break;
+
     case "factorial":
       if (value < 0 || !Number.isInteger(value) || value > 170) {
         showError("Faktorial hanya berlaku untuk bilangan bulat 0–170");
         return;
       }
+
       result = 1;
+
       for (let number = 2; number <= value; number += 1) {
         result *= number;
       }
+
       label = `${currentValue}!`;
       break;
+
     default:
       return;
   }
 
   const normalized = normalizeNumber(result);
+
   if (normalized === null) {
     showError("Hasil di luar jangkauan");
     return;
   }
 
   const calculationExpression = `${label} =`;
+
   currentValue = normalized;
   storedValue = null;
   pendingOperator = null;
@@ -331,7 +390,9 @@ function clearCalculator() {
 }
 
 function toggleSign() {
-  if (hasError) return;
+  if (hasError) {
+    return;
+  }
 
   if (shouldResetOnDigit) {
     currentValue = "0";
@@ -349,9 +410,12 @@ function toggleSign() {
 }
 
 function convertToPercent() {
-  if (hasError) return;
+  if (hasError) {
+    return;
+  }
 
   const normalized = normalizeNumber(Number(currentValue) / 100);
+
   if (normalized === null) {
     showError("Operasi tidak terdefinisi");
     return;
@@ -374,7 +438,10 @@ function deleteLastDigit() {
     expressionLabel = "";
   } else {
     currentValue = currentValue.slice(0, -1);
-    if (currentValue === "" || currentValue === "-") currentValue = "0";
+
+    if (currentValue === "" || currentValue === "-") {
+      currentValue = "0";
+    }
   }
 
   render();
@@ -398,6 +465,12 @@ function createHistoryButton(label, action, entryId, className = "") {
 }
 
 function renderHistory() {
+  if (!historyList) {
+    console.error("Daftar riwayat tidak ditemukan.");
+    setHistoryStatus("Daftar riwayat tidak ditemukan.");
+    return;
+  }
+
   historyList.replaceChildren();
 
   if (calculationHistory.length === 0) {
@@ -435,7 +508,12 @@ function renderHistory() {
     actions.append(
       createHistoryButton("Pakai", "use", entry.id),
       createHistoryButton("Salin", "copy", entry.id),
-      createHistoryButton("Hapus", "delete", entry.id, "history-action-delete")
+      createHistoryButton(
+        "Hapus",
+        "delete",
+        entry.id,
+        "history-action-delete"
+      )
     );
 
     item.append(details, actions);
@@ -464,11 +542,14 @@ async function copyText(text) {
   const copied = document.execCommand("copy");
   temporaryInput.remove();
 
-  if (!copied) throw new Error("Perangkat tidak mengizinkan penyalinan.");
+  if (!copied) {
+    throw new Error("Perangkat tidak mengizinkan penyalinan.");
+  }
 }
 
 async function handleHistoryAction(action, entryId) {
   const entry = findHistoryEntry(entryId);
+
   if (!entry) {
     setHistoryStatus("Perhitungan tidak ditemukan.");
     return;
@@ -482,6 +563,7 @@ async function handleHistoryAction(action, entryId) {
       console.error("Hasil kalkulator gagal disalin:", error);
       setHistoryStatus("Hasil tidak dapat disalin di perangkat ini.");
     }
+
     return;
   }
 
@@ -493,102 +575,166 @@ async function handleHistoryAction(action, entryId) {
     hasError = false;
     expressionLabel = "";
     render();
-    historyDialog.close();
+
+    if (historyDialog && historyDialog.open) {
+      historyDialog.close();
+    }
+
     return;
   }
 
   if (action === "delete") {
-    calculationHistory = calculationHistory.filter((item) => item.id !== entryId);
+    calculationHistory = calculationHistory.filter(
+      (item) => item.id !== entryId
+    );
+
     saveHistory();
     renderHistory();
     setHistoryStatus("Perhitungan dihapus.");
   }
 }
 
-controls.addEventListener("click", (event) => {
-  const button = event.target.closest("button[data-action]");
-  if (!button) return;
+if (controls) {
+  controls.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-action]");
 
-  const { action, value } = button.dataset;
+    if (!button) {
+      return;
+    }
 
-  switch (action) {
-    case "digit":
-      enterDigit(value);
-      break;
-    case "decimal":
-      enterDecimal();
-      break;
-    case "operator":
-      chooseOperator(value);
-      break;
-    case "equals":
-      calculateResult();
-      break;
-    case "clear":
-      clearCalculator();
-      break;
-    case "sign":
-      toggleSign();
-      break;
-    case "percent":
-      convertToPercent();
-      break;
-    case "scientific":
-      applyScientificFunction(value);
-      break;
-    default:
-      break;
-  }
-});
+    const { action, value } = button.dataset;
 
-scientificToggle.addEventListener("click", () => {
-  const isExpanded = scientificToggle.getAttribute("aria-expanded") === "true";
-  scientificToggle.setAttribute("aria-expanded", String(!isExpanded));
-  scientificPanel.hidden = isExpanded;
-});
+    switch (action) {
+      case "digit":
+        enterDigit(value);
+        break;
+      case "decimal":
+        enterDecimal();
+        break;
+      case "operator":
+        chooseOperator(value);
+        break;
+      case "equals":
+        calculateResult();
+        break;
+      case "clear":
+        clearCalculator();
+        break;
+      case "sign":
+        toggleSign();
+        break;
+      case "percent":
+        convertToPercent();
+        break;
+      case "scientific":
+        applyScientificFunction(value);
+        break;
+      default:
+        break;
+case "delete":
+  deleteLastDigit();
+  break;
+    }
+  });
+} else {
+  console.error("Tombol kalkulator tidak ditemukan.");
+}
 
-angleToggle.addEventListener("click", () => {
-  angleMode = angleMode === "DEG" ? "RAD" : "DEG";
-  angleToggle.textContent = angleMode;
-  angleToggle.setAttribute(
-    "aria-label",
-    `Mode sudut: ${angleMode === "DEG" ? "derajat" : "radian"}`
-  );
-});
+if (scientificToggle && scientificPanel) {
+  scientificToggle.addEventListener("click", () => {
+    const isExpanded =
+      scientificToggle.getAttribute("aria-expanded") === "true";
 
-document.getElementById("history-open").addEventListener("click", () => {
-  renderHistory();
-  setHistoryStatus("");
-  historyDialog.showModal();
-});
+    scientificToggle.setAttribute("aria-expanded", String(!isExpanded));
+    scientificPanel.hidden = isExpanded;
+  });
+}
 
-document.getElementById("history-close").addEventListener("click", () => {
-  historyDialog.close();
-});
+if (angleToggle) {
+  angleToggle.addEventListener("click", () => {
+    angleMode = angleMode === "DEG" ? "RAD" : "DEG";
+    angleToggle.textContent = angleMode;
+    angleToggle.setAttribute(
+      "aria-label",
+      `Mode sudut: ${angleMode === "DEG" ? "derajat" : "radian"}`
+    );
+  });
+}
 
-document.getElementById("history-clear").addEventListener("click", () => {
-  if (calculationHistory.length === 0) {
-    setHistoryStatus("Riwayat sudah kosong.");
+if (historyOpen && historyDialog) {
+  historyOpen.addEventListener("click", () => {
+    renderHistory();
+    setHistoryStatus("");
+
+    if (typeof historyDialog.showModal === "function") {
+      historyDialog.showModal();
+    } else {
+      historyDialog.setAttribute("open", "");
+    }
+  });
+} else {
+  console.error("Tombol atau dialog riwayat tidak ditemukan.");
+}
+
+if (historyClose && historyDialog) {
+  historyClose.addEventListener("click", () => {
+    if (typeof historyDialog.close === "function") {
+      historyDialog.close();
+    } else {
+      historyDialog.removeAttribute("open");
+    }
+  });
+}
+
+if (historyClear) {
+  historyClear.addEventListener("click", () => {
+    if (calculationHistory.length === 0) {
+      setHistoryStatus("Riwayat sudah kosong.");
+      return;
+    }
+
+    if (!window.confirm("Hapus semua riwayat perhitungan?")) {
+      return;
+    }
+
+    calculationHistory = [];
+    saveHistory();
+    renderHistory();
+    setHistoryStatus("Semua riwayat dihapus.");
+  });
+}
+
+if (historyList) {
+  historyList.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-history-action]");
+
+    if (button) {
+      handleHistoryAction(
+        button.dataset.historyAction,
+        button.dataset.historyId
+      );
+    }
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (historyDialog && historyDialog.open) {
     return;
   }
 
-  if (!window.confirm("Hapus semua riwayat perhitungan?")) return;
+  const target = event.target;
+  const isEditable =
+    target &&
+    (
+      target.isContentEditable ||
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.tagName === "SELECT"
+    );
 
-  calculationHistory = [];
-  saveHistory();
-  renderHistory();
-  setHistoryStatus("Semua riwayat dihapus.");
-});
-
-historyList.addEventListener("click", (event) => {
-  const button = event.target.closest("button[data-history-action]");
-  if (button) {
-    handleHistoryAction(button.dataset.historyAction, button.dataset.historyId);
+  if (isEditable) {
+    return;
   }
-});
-
-document.addEventListener("keydown", (event) => {
-  if (historyDialog.open) return;
 
   const { key } = event;
 
@@ -603,7 +749,7 @@ document.addEventListener("keydown", (event) => {
     calculateResult();
   } else if (key === "Escape") {
     clearCalculator();
-  } else if (key === "Backspace") {
+  } else if (key === "Backspace" || key === "Delete") {
     event.preventDefault();
     deleteLastDigit();
   } else if (key === "%") {

@@ -1,0 +1,5 @@
+.calculator-header > .scientific-toggle,
+.calculator-header > .unit-converter-open,
+.calculator-header > .percentage-tools-open {
+  display: none !important;
+}
