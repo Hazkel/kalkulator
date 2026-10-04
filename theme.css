@@ -1,0 +1,139 @@
+:root[data-theme="light"] {
+  color-scheme: light;
+  background: #f4f7fb;
+  color: #172033;
+}
+
+html[data-theme="light"] body {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(103, 199, 242, 0.16), transparent 48%),
+    #f4f7fb;
+}
+
+html[data-theme="light"] .brand-mark {
+  border-color: rgba(23, 32, 51, 0.12);
+  background: rgba(255, 255, 255, 0.8);
+  color: #087eae;
+}
+
+html[data-theme="light"] .calculator-header h1 {
+  color: #475569;
+}
+
+html[data-theme="light"] .header-button,
+html[data-theme="light"] .angle-toggle,
+html[data-theme="light"] .history-close,
+html[data-theme="light"] .history-action,
+html[data-theme="light"] .history-clear {
+  border-color: rgba(23, 32, 51, 0.12);
+  background: #fff;
+  color: #172033;
+}
+
+html[data-theme="light"] .scientific-toggle,
+html[data-theme="light"] .history-open,
+html[data-theme="light"] .theme-toggle,
+html[data-theme="light"] .angle-toggle {
+  color: #087eae;
+}
+
+html[data-theme="light"] .scientific-toggle[aria-expanded="true"] {
+  background: #e6f3fa;
+}
+
+html[data-theme="light"] .expression {
+  color: #64748b;
+}
+
+html[data-theme="light"] .display {
+  color: #172033;
+}
+
+html[data-theme="light"] .key {
+  border-color: rgba(23, 32, 51, 0.07);
+  background: #fff;
+  color: #172033;
+  box-shadow: 0 2px 8px rgba(23, 32, 51, 0.06);
+}
+
+html[data-theme="light"] .key:active {
+  background: #e9edf3;
+}
+
+html[data-theme="light"] .key-utility {
+  background: #e6eaf0;
+  color: #334155;
+}
+
+html[data-theme="light"] .key-operator,
+html[data-theme="light"] .key-scientific {
+  background: #e6f3fa;
+  color: #087eae;
+}
+
+html[data-theme="light"] .key-equals {
+  border-color: transparent;
+  background: #67c7f2;
+  color: #07141b;
+}
+
+html[data-theme="light"] .key-equals:active {
+  background: #8bd7fb;
+}
+
+html[data-theme="light"] .scientific-panel {
+  border-color: rgba(23, 32, 51, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+html[data-theme="light"] .scientific-toolbar {
+  color: #64748b;
+}
+
+html[data-theme="light"] .history-dialog {
+  border-color: rgba(23, 32, 51, 0.14);
+  background: #fff;
+  color: #172033;
+}
+
+html[data-theme="light"] .history-dialog::backdrop {
+  background: rgba(15, 23, 42, 0.38);
+}
+
+html[data-theme="light"] .history-header p,
+html[data-theme="light"] .history-expression,
+html[data-theme="light"] .history-empty {
+  color: #64748b;
+}
+
+html[data-theme="light"] .history-status {
+  color: #087eae;
+}
+
+html[data-theme="light"] .history-item {
+  border-color: rgba(23, 32, 51, 0.1);
+  background: #f4f7fb;
+}
+
+html[data-theme="light"] .history-date {
+  color: #64748b;
+}
+
+html[data-theme="light"] .history-action-delete,
+html[data-theme="light"] .history-clear {
+  color: #c24141;
+}
+
+html[data-theme="light"] .key:focus-visible,
+html[data-theme="light"] .header-button:focus-visible,
+html[data-theme="light"] .angle-toggle:focus-visible,
+html[data-theme="light"] .history-close:focus-visible,
+html[data-theme="light"] .history-action:focus-visible,
+html[data-theme="light"] .history-clear:focus-visible {
+  outline-color: #087eae;
+}
+
+html[data-theme="light"] .theme-toggle:focus-visible {
+  outline: 3px solid #087eae;
+  outline-offset: 3px;
+}
