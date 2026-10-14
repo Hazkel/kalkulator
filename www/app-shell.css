@@ -714,3 +714,413 @@ html[data-theme="light"] .price-footnote {
     gap: 9px;
   }
 }
+
+/* Monochrome, low-noise visual system shared by every screen. */
+:root {
+  color-scheme: dark;
+  --page-bg: #080808;
+  --surface: #101010;
+  --surface-soft: #181818;
+  --text: #f5f5f5;
+  --muted: #a0a0a0;
+  --subtle: #747474;
+  --line: #303030;
+  --line-strong: #505050;
+  --inverse-bg: #f5f5f5;
+  --inverse-text: #080808;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #ffffff;
+  --surface: #ffffff;
+  --surface-soft: #f5f5f5;
+  --text: #101010;
+  --muted: #5f5f5f;
+  --subtle: #777777;
+  --line: #e4e4e4;
+  --line-strong: #b8b8b8;
+  --inverse-bg: #101010;
+  --inverse-text: #ffffff;
+}
+
+html[data-theme] body {
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+html[data-theme] .app-sidebar {
+  border-color: var(--line);
+  background: var(--page-bg);
+}
+
+html[data-theme] .app-topbar {
+  border-color: var(--line);
+  background: var(--page-bg);
+}
+
+html[data-theme] .app-brand-mark {
+  border-color: var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+html[data-theme] .brand-mark {
+  border-color: var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+html[data-theme] .app-brand strong,
+html[data-theme] .calculator-header h1,
+html[data-theme] .price-heading h1,
+html[data-theme] .result-heading h2,
+html[data-theme] .selling-heading h1,
+html[data-theme] .selling-panel h2,
+html[data-theme] .selling-saved-panel h2,
+html[data-theme] .recipe-heading h1,
+html[data-theme] .recipe-panel h2 {
+  color: var(--text);
+}
+
+html[data-theme] .app-brand small,
+html[data-theme] .sidebar-heading,
+html[data-theme] .sidebar-note,
+html[data-theme] .topbar-kicker,
+html[data-theme] .topbar-title,
+html[data-theme] .page-eyebrow,
+html[data-theme] .page-description,
+html[data-theme] .selling-description,
+html[data-theme] .recipe-description {
+  color: var(--muted);
+}
+
+html[data-theme] .sidebar-link {
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+html[data-theme] .sidebar-link > span:first-child {
+  color: var(--muted);
+  filter: grayscale(1);
+}
+
+html[data-theme] .sidebar-link:hover,
+html[data-theme] .sidebar-link.is-active {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--page-bg);
+}
+
+html[data-theme] .sidebar-link:hover > span:first-child,
+html[data-theme] .sidebar-link.is-active > span:first-child {
+  color: var(--page-bg);
+}
+
+html[data-theme] .offline-dot {
+  background: var(--text);
+  box-shadow: none;
+}
+
+html[data-theme] .header-button,
+html[data-theme] .angle-toggle,
+html[data-theme] .history-close,
+html[data-theme] .history-action,
+html[data-theme] .history-clear,
+html[data-theme] .remove-product,
+html[data-theme] .secondary-button,
+html[data-theme] .recipe-remove-ingredient,
+html[data-theme] .selling-new,
+html[data-theme] .selling-saved-item button,
+html[data-theme] .unit-converter-close,
+html[data-theme] .unit-swap,
+html[data-theme] .unit-copy,
+html[data-theme] .percentage-tools-close,
+html[data-theme] .percentage-tools-reset,
+html[data-theme] .percentage-tools-copy {
+  border-color: var(--line-strong);
+  border-radius: 4px;
+  background: var(--page-bg);
+  color: var(--text);
+  box-shadow: none;
+}
+
+html[data-theme] .theme-toggle,
+html[data-theme] .history-open,
+html[data-theme] .scientific-toggle,
+html[data-theme] .angle-toggle,
+html[data-theme] .unit-converter-open,
+html[data-theme] .percentage-tools-open,
+html[data-theme] .unit-swap,
+html[data-theme] .unit-copy,
+html[data-theme] .percentage-tools-copy {
+  color: var(--text);
+}
+
+html[data-theme] .scientific-toggle[aria-expanded="true"] {
+  background: var(--surface-soft);
+}
+
+html[data-theme] .unit-converter-open,
+html[data-theme] .percentage-tools-open {
+  color: var(--text) !important;
+}
+
+html[data-theme] .key {
+  border-color: var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: none;
+}
+
+html[data-theme] .key:active,
+html[data-theme] .unit-converter-close:active,
+html[data-theme] .unit-swap:active,
+html[data-theme] .unit-copy:active,
+html[data-theme] .unit-converter-open:active,
+html[data-theme] .percentage-tools-open:active,
+html[data-theme] .percentage-tools-close:active,
+html[data-theme] .percentage-tools-reset:active,
+html[data-theme] .percentage-tools-copy:active {
+  background: var(--surface-soft);
+}
+
+html[data-theme] .key-utility,
+html[data-theme] .key-operator,
+html[data-theme] .key-scientific {
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme] .key-equals,
+html[data-theme] .primary-button,
+html[data-theme] .selling-save {
+  border-color: var(--inverse-bg);
+  border-radius: 4px;
+  background: var(--inverse-bg);
+  color: var(--inverse-text);
+}
+
+html[data-theme] .key-equals:active {
+  background: var(--inverse-bg);
+  opacity: 0.82;
+}
+
+html[data-theme] .display {
+  color: var(--text);
+  font-weight: 350;
+}
+
+html[data-theme] .expression,
+html[data-theme] .scientific-toolbar,
+html[data-theme] .price-category-field,
+html[data-theme] .product-field,
+html[data-theme] .product-unit-price,
+html[data-theme] .metric-card span,
+html[data-theme] .result-summary,
+html[data-theme] .equivalent-section > p,
+html[data-theme] .price-footnote,
+html[data-theme] .example-note,
+html[data-theme] .selling-field,
+html[data-theme] .selling-hint,
+html[data-theme] .selling-empty,
+html[data-theme] .selling-metric span,
+html[data-theme] .selling-saved-info span,
+html[data-theme] .recipe-field,
+html[data-theme] .recipe-hint,
+html[data-theme] .recipe-status[data-kind="info"],
+html[data-theme] .recipe-ratio-card span,
+html[data-theme] .unit-converter-header p,
+html[data-theme] .unit-converter-field,
+html[data-theme] .unit-result-box,
+html[data-theme] .percentage-tools-header p,
+html[data-theme] .percentage-tools-field,
+html[data-theme] .percentage-tools-hint,
+html[data-theme] .percentage-tools-result-empty,
+html[data-theme] .percentage-tools-result-row {
+  color: var(--muted);
+}
+
+html[data-theme] .price-category-field select,
+html[data-theme] .product-field input,
+html[data-theme] .product-field select,
+html[data-theme] .selling-field input,
+html[data-theme] .selling-field select,
+html[data-theme] .recipe-field input,
+html[data-theme] .recipe-field select,
+html[data-theme] .unit-converter-field select,
+html[data-theme] .unit-converter-field input,
+html[data-theme] .percentage-tools-field select,
+html[data-theme] .percentage-tools-field input {
+  border-color: var(--line-strong);
+  border-radius: 4px;
+  background: var(--page-bg);
+  color: var(--text);
+  box-shadow: none;
+}
+
+html[data-theme] input::placeholder {
+  color: var(--subtle);
+}
+
+html[data-theme] .example-note,
+html[data-theme] .product-card,
+html[data-theme] .comparison-result,
+html[data-theme] .metric-card,
+html[data-theme] .equivalent-row,
+html[data-theme] .selling-panel,
+html[data-theme] .selling-results,
+html[data-theme] .selling-saved-panel,
+html[data-theme] .selling-metric,
+html[data-theme] .selling-saved-item,
+html[data-theme] .recipe-panel,
+html[data-theme] .recipe-ingredient,
+html[data-theme] .recipe-ratio-card,
+html[data-theme] .recipe-result-item,
+html[data-theme] .unit-result-box,
+html[data-theme] .percentage-tools-result {
+  border-color: var(--line);
+  border-radius: 5px;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+html[data-theme] .example-icon {
+  border-radius: 3px;
+  background: var(--surface-soft);
+  color: var(--text);
+}
+
+html[data-theme] .product-card-title,
+html[data-theme] .metric-card strong,
+html[data-theme] .equivalent-row strong,
+html[data-theme] .selling-price,
+html[data-theme] .selling-metric strong,
+html[data-theme] .selling-saved-info strong,
+html[data-theme] .recipe-result-name,
+html[data-theme] .unit-result,
+html[data-theme] .percentage-tools-result-row strong {
+  color: var(--text);
+}
+
+html[data-theme] .product-unit-price,
+html[data-theme] .product-unit-price strong,
+html[data-theme] .best-badge,
+html[data-theme] .equivalent-row.is-best,
+html[data-theme] .equivalent-row.is-best strong,
+html[data-theme] .selling-result-label,
+html[data-theme] .selling-message[data-kind="success"],
+html[data-theme] .selling-saved-item .selling-delete,
+html[data-theme] .recipe-add-ingredient,
+html[data-theme] .recipe-status[data-kind="success"],
+html[data-theme] .recipe-ratio-card strong,
+html[data-theme] .recipe-result-amount,
+html[data-theme] .unit-result-label,
+html[data-theme] .percentage-tools-status,
+html[data-theme] .history-status {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--text);
+}
+
+html[data-theme] .best-badge,
+html[data-theme] .recipe-add-ingredient {
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+}
+
+html[data-theme] .product-unit-price {
+  border-color: var(--line);
+}
+
+html[data-theme] .history-dialog,
+html[data-theme] .unit-converter-dialog,
+html[data-theme] .percentage-tools-dialog {
+  border-color: var(--line-strong);
+  border-radius: 6px;
+  background: var(--page-bg);
+  color: var(--text);
+  box-shadow: none;
+}
+
+html[data-theme] .history-dialog::backdrop,
+html[data-theme] .unit-converter-dialog::backdrop,
+html[data-theme] .percentage-tools-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+}
+
+html[data-theme] .history-header p,
+html[data-theme] .history-expression,
+html[data-theme] .history-date,
+html[data-theme] .history-empty {
+  color: var(--muted);
+}
+
+html[data-theme] .history-item {
+  border-color: var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+}
+
+html[data-theme] .history-action-delete,
+html[data-theme] .history-clear,
+html[data-theme] .price-error,
+html[data-theme] .selling-message,
+html[data-theme] .recipe-remove-ingredient,
+html[data-theme] .recipe-status,
+html[data-theme] .recipe-result-item.is-invalid .recipe-result-amount,
+html[data-theme] .recipe-result-empty,
+html[data-theme] .unit-converter-error {
+  color: var(--muted);
+}
+
+html[data-theme] .unit-converter-header h2,
+html[data-theme] .percentage-tools-header h2,
+html[data-theme] .history-header h2 {
+  color: var(--text);
+}
+
+html[data-theme] .key:focus-visible,
+html[data-theme] .header-button:focus-visible,
+html[data-theme] .angle-toggle:focus-visible,
+html[data-theme] .history-close:focus-visible,
+html[data-theme] .history-action:focus-visible,
+html[data-theme] .history-clear:focus-visible,
+html[data-theme] .sidebar-link:focus-visible,
+html[data-theme] .price-category-field select:focus-visible,
+html[data-theme] .product-field input:focus-visible,
+html[data-theme] .product-field select:focus-visible,
+html[data-theme] .remove-product:focus-visible,
+html[data-theme] .price-actions button:focus-visible,
+html[data-theme] .selling-field input:focus-visible,
+html[data-theme] .selling-field select:focus-visible,
+html[data-theme] .selling-actions button:focus-visible,
+html[data-theme] .selling-saved-item button:focus-visible,
+html[data-theme] .recipe-field input:focus-visible,
+html[data-theme] .recipe-field select:focus-visible,
+html[data-theme] .recipe-panel button:focus-visible,
+html[data-theme] .unit-converter-field select:focus-visible,
+html[data-theme] .unit-converter-field input:focus-visible,
+html[data-theme] .unit-converter-close:focus-visible,
+html[data-theme] .unit-swap:focus-visible,
+html[data-theme] .unit-copy:focus-visible,
+html[data-theme] .unit-converter-open:focus-visible,
+html[data-theme] .percentage-tools-open:focus-visible,
+html[data-theme] .percentage-tools-close:focus-visible,
+html[data-theme] .percentage-tools-reset:focus-visible,
+html[data-theme] .percentage-tools-copy:focus-visible,
+html[data-theme] .percentage-tools-field select:focus-visible,
+html[data-theme] .percentage-tools-field input:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+html[data-theme] #sidebar-status {
+  border: 1px solid var(--line-strong);
+  border-radius: 4px !important;
+  background: var(--surface) !important;
+  color: var(--text) !important;
+}
