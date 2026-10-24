@@ -78,11 +78,18 @@ jobs:
           name: kalkulator-apk
           path: release-assets
 
-      - name: Publish GitHub Release
+      - name: Publish APK to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
-            "release-assets/app-debug.apk" \
-            --title "Kalkulator $GITHUB_REF_NAME" \
-            --generate-notes
+          if gh release view "$VERSION_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$VERSION_TAG" release-assets/app-debug.apk \
+              --repo "$GITHUB_REPOSITORY" \
+              --clobber
+          else
+            gh release create "$VERSION_TAG" release-assets/app-debug.apk \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "Kalkulator $VERSION_TAG" \
+              --generate-notes
+          fi
