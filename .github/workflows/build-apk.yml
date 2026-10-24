@@ -48,11 +48,16 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
+      - name: Prepare named APK
+        run: |
+          mkdir -p release-assets
+          cp android/app/build/outputs/apk/debug/app-debug.apk release-assets/kalkulator.apk
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: kalkulator-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: release-assets/kalkulator.apk
           if-no-files-found: error
 
   publish-release:
@@ -84,11 +89,11 @@ jobs:
           VERSION_TAG: ${{ github.ref_name }}
         run: |
           if gh release view "$VERSION_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release upload "$VERSION_TAG" release-assets/app-debug.apk \
+            gh release upload "$VERSION_TAG" release-assets/kalkulator.apk \
               --repo "$GITHUB_REPOSITORY" \
               --clobber
           else
-            gh release create "$VERSION_TAG" release-assets/app-debug.apk \
+            gh release create "$VERSION_TAG" release-assets/kalkulator.apk \
               --repo "$GITHUB_REPOSITORY" \
               --title "Kalkulator $VERSION_TAG" \
               --generate-notes
