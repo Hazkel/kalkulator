@@ -4,7 +4,12 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -43,8 +48,41 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleDebug
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: kalkulator-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+  publish-release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Validate version tag
+        env:
+          VERSION_TAG: ${{ github.ref_name }}
+        run: |
+          if [[ ! "$VERSION_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag harus mengikuti format vMAJOR.MINOR.PATCH, misalnya v1.0.0."
+            exit 1
+          fi
+
+      - name: Download APK artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: kalkulator-apk
+          path: release-assets
+
+      - name: Publish GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "release-assets/app-debug.apk" \
+            --title "Kalkulator $GITHUB_REF_NAME" \
+            --generate-notes
